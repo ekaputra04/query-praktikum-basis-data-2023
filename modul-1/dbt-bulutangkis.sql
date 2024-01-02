@@ -20,7 +20,6 @@ create table lapangan(
   status_lapangan enum('tersedia', 'dipesan') not null,
   created_at timestamp default current_timestamp,
   updated_at timestamp default current_timestamp on update current_timestamp,
-  waktu_pesan decimal(10, 2),
   waktu_pesan_awal datetime,
   waktu_pesan_akhir datetime
 );
@@ -31,7 +30,9 @@ create table raket(
   harga_per_jam decimal(10, 2),
   status_raket enum('tersedia', 'dipesan') not null,
   created_at timestamp default current_timestamp,
-  updated_at timestamp default current_timestamp on update current_timestamp
+  updated_at timestamp default current_timestamp on update current_timestamp,
+  waktu_pesan_awal datetime,
+  waktu_pesan_akhir datetime
 );
 
 create table kok(
