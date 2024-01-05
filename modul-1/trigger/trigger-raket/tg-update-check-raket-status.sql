@@ -1,5 +1,6 @@
 -- Buat trigger untuk memeriksa status raket sebelum penyewaan
-DELIMITER / / CREATE TRIGGER update_check_raket_status BEFORE
+DELIMITER / / CREATE TRIGGER update_check_raket_status
+AFTER
 UPDATE
   ON detail_penyewaan_raket FOR EACH ROW BEGIN DECLARE status_raket ENUM('tersedia', 'dipesan');
 

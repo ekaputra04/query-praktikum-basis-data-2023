@@ -1,5 +1,5 @@
 INSERT INTO
-  penyewaan_raket (id_user, id_admin)
+  pembelian_kok (id_user, id_admin)
 VALUES
   (4, 1),
   (5, 2),

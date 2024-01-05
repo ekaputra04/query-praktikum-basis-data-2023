@@ -1,5 +1,6 @@
 -- Buat trigger untuk memeriksa status lapangan sebelum penyewaan
-DELIMITER / / CREATE TRIGGER update_check_lapangan_status BEFORE
+DELIMITER / / CREATE TRIGGER update_check_lapangan_status
+AFTER
 UPDATE
   ON detail_penyewaan_lapangan FOR EACH ROW BEGIN DECLARE lapangan_status ENUM('tersedia', 'dipesan');
 
