@@ -1,0 +1,150 @@
+@startuml bulutangkis
+
+entity users{
+  *id : int <<generated>>
+  --
+  nama : varchar(64)
+  email : varchar(64)
+  password : varchar(64)
+  is_admin : tinyint(1) default 0
+  created_at : timestamp default current_timestamp
+  updated_at : timestamp default current_timestamp on update current_timestamp
+}
+
+entity lapangan{
+  *id : int <<generated>>
+  --
+  nama varchar(64)
+  harga_per_jam decimal(10, 2)
+  kelas enum('gold', 'silver', 'bronze')
+  status_lapangan enum('tersedia', 'dipesan') not null default 'tersedia'
+  created_at timestamp default current_timestamp
+  updated_at timestamp default current_timestamp on update current_timestamp
+  waktu_pesan_awal datetime
+  waktu_pesan_akhir datetime
+}
+
+entity raket{
+  *id : int <<generated>>
+  --
+  nama : varchar(64)
+  harga_per_jam : decimal(10, 2)
+  status_raket : enum('tersedia', 'dipesan') not null default 'tersedia'
+  created_at : timestamp default current_timestamp
+  updated_at : timestamp default current_timestamp on update current_timestamp
+  waktu_pesan_awal : datetime
+  waktu_pesan_akhir : datetime
+}
+
+entity kok{
+  *id : int <<generated>>
+  --
+  status_kok : enum('tersedia', 'terjual') not null default 'tersedia'
+  harga : decimal(10, 2)
+  created_at : timestamp default current_timestamp
+  updated_at : timestamp default current_timestamp on update current_timestamp
+  ordered_at : datetime
+}
+
+entity penyewaan_lapangan{
+  *id : int <<generated>>
+  --
+  *id_user : int <<FK>>
+  *id_admin : int <<FK>>
+  total_penyewaan : decimal(10, 2) default 0
+  created_at : timestamp default current_timestamp
+  updated_at : timestamp default current_timestamp on update : current_timestamp,
+}
+
+
+
+entity detail_penyewaan_lapangan{
+  *id : int <<generated>>
+  --
+  *id_penyewaan : int <<FK>>
+  *id_lapangan : int <<FK>>
+  rentang_waktu : decimal(10, 2)
+  total_biaya : decimal(10, 2) default 0
+  created_at : timestamp default current_timestamp
+  updated_at : timestamp default current_timestamp on update current_timestamp
+}
+
+entity penyewaan_raket{
+  *id : int <<generated>>
+  --
+  *id_user : int <<FK>>
+  *id_admin : int <<FK>>
+  total_penyewaan : decimal(10, 2) default 0
+  created_at : timestamp default current_timestamp
+  updated_at : timestamp default current_timestamp on update current_timestamp
+}
+
+entity detail_penyewaan_raket{
+  *id : int <<generated>>
+  --
+  *id_penyewaan int <<FK>>
+  *id_raket int <<FK>>
+  rentang_waktu decimal(10, 2)
+  total_biaya decimal(10, 2) default 0
+  created_at timestamp default current_timestamp
+  updated_at timestamp default current_timestamp on update current_timestamp
+}
+
+
+
+entity pembelian_kok{
+  *id : int <<generated>>
+  --
+  *id_user : int <<FK>>
+  *id_admin : int <<FK>>
+  total_pembelian : decimal(10, 2) default 0
+  created_at : timestamp default current_timestamp
+  updated_at : timestamp default current_timestamp on update current_timestamp
+}
+
+entity detail_pembelian_kok{
+  *id : int <<generated>>
+  --
+  *id_pembelian : int <<FK>>
+  *id_kok : int <<FK>>
+  jumlah : decimal(10, 2)
+  total_biaya : decimal(10, 2) default 0
+  created_at : timestamp default current_timestamp
+  updated_at : timestamp default current_timestamp on update current_timestamp
+}
+
+entity review_lapangan{
+  *id : int <<generated>>
+  --
+  *id_pesanan_lapangan : int <<FK>>
+  pesan : text
+  rating : int
+  created_at : timestamp default current_timestamp
+  updated_at : timestamp default current_timestamp on update current_timestamp
+}
+
+entity review_raket{
+  *id : int <<generated>>
+  --
+  *id_pesanan_raket : int <<FK>>
+  pesan : text 
+  rating : int 
+  created_at : timestamp default current_timestamp
+  updated_at : timestamp default current_timestamp on update current_timestamp
+  foreign key(id_pesanan_raket) references detail_penyewaan_raket(id)
+}
+
+' relationship
+penyewaan_lapangan }|..|| users
+detail_penyewaan_lapangan }|..|| penyewaan_lapangan
+detail_penyewaan_lapangan }|..|| lapangan
+penyewaan_raket }|..|| users
+detail_penyewaan_raket }|..|| penyewaan_raket
+detail_penyewaan_raket }|..|| raket
+pembelian_kok }|..|| users
+detail_pembelian_kok }|..|| pembelian_kok
+detail_pembelian_kok }|..|| kok
+review_lapangan }|..|| detail_penyewaan_lapangan
+review_raket }|..|| detail_penyewaan_raket
+
+@enduml
