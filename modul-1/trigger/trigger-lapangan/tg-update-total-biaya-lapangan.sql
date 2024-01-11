@@ -1,5 +1,4 @@
-DELIMITER / / CREATE TRIGGER update_total_biaya_lapangan
-AFTER
+DELIMITER / / CREATE TRIGGER update_total_biaya_lapangan BEFORE
 UPDATE
   ON detail_penyewaan_lapangan FOR EACH ROW BEGIN DECLARE harga DECIMAL(10, 2);
 

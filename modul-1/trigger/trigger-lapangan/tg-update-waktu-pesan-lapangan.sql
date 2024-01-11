@@ -1,5 +1,4 @@
-DELIMITER / / CREATE TRIGGER update_waktu_pesan_lapangan
-AFTER
+DELIMITER / / CREATE TRIGGER update_waktu_pesan_lapangan BEFORE
 UPDATE
   ON detail_penyewaan_lapangan FOR EACH ROW BEGIN DECLARE rentang_waktu DECIMAL(10, 2);
 

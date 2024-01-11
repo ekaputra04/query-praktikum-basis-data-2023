@@ -36,7 +36,7 @@ create table obat(
 create table resep(
   id int primary key auto_increment,
   id_user int,
-  total_harga decimal(10, 2),
+  foto text,
   created_at timestamp default current_timestamp,
   updated_at timestamp default current_timestamp on update current_timestamp,
   foreign key (id_user) references users(id)
@@ -47,7 +47,6 @@ create table detail_resep(
   id_resep int,
   id_obat int,
   jumlah int,
-  total_biaya decimal(10, 2),
   created_at timestamp default current_timestamp,
   updated_at timestamp default current_timestamp on update current_timestamp,
   foreign key (id_resep) references resep(id),
@@ -68,12 +67,14 @@ create table transaksi(
 create table detail_transaksi(
   id int primary key auto_increment,
   id_transaksi int,
+  id_resep int default null,
   id_obat int,
   jumlah decimal(10, 2),
   total_biaya decimal(10, 2) default 0,
   created_at timestamp default current_timestamp,
   updated_at timestamp default current_timestamp on update current_timestamp,
   foreign key(id_transaksi) references transaksi(id),
+  foreign key(id_resep) references detail_resep(id),
   foreign key(id_obat) references obat(id)
 );
 

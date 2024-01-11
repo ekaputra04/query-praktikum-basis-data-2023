@@ -1,5 +1,4 @@
-DELIMITER / / CREATE TRIGGER update_total_biaya_raket
-AFTER
+DELIMITER / / CREATE TRIGGER update_total_biaya_raket BEFORE
 UPDATE
   ON detail_penyewaan_raket FOR EACH ROW BEGIN DECLARE harga DECIMAL(10, 2);
 

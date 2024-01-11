@@ -1,5 +1,4 @@
-DELIMITER / / CREATE TRIGGER update_total_penyewaan_lapangan
-AFTER
+DELIMITER / / CREATE TRIGGER update_total_penyewaan_lapangan BEFORE
 UPDATE
   ON detail_penyewaan_lapangan FOR EACH ROW BEGIN
 UPDATE
