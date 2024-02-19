@@ -131,7 +131,6 @@ entity review_raket{
   rating : int 
   created_at : timestamp default current_timestamp
   updated_at : timestamp default current_timestamp on update current_timestamp
-  foreign key(id_pesanan_raket) references detail_penyewaan_raket(id)
 }
 
 ' relationship
