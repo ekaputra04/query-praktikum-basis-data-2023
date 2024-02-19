@@ -1,0 +1,103 @@
+@startuml apotek
+
+entity user  {
+  *id : int <<generated>>
+  --
+  nama : varchar(255)
+  role : enum('customer', 'admin')
+  gender : enum('pria', 'wanita')
+}
+
+entity produsen {
+  *id : int <<generated>>
+  --
+  nama varchar(255)
+  kontak varchar(13)
+}
+
+entity pengajuan_resep  {
+  *id : int <<generated>>
+  --
+  isi : varchar(255)
+  status : enum('terkonfirmasi', 'menunggu', 'ditolak')
+  tgl_pengajuan : datetime
+  id_user : int
+}
+
+entity resep {
+  *id : int <<generated>>
+  --
+  deskripsi : varchar(255)
+}
+
+entity bahan_penyusun {
+  *id : int <<generated>>
+  --
+  bahan_penyusun : varchar(255)
+  id_resep : int
+  foreign key(id_resep) references resep(id)
+}
+
+entity obat {
+  *id : int <<generated>>
+  --
+  nama : varchar(255)
+  kategori : enum('obat bebas', 'obat bebas terbatas', 'obat keras', 'obat golongan narkotika', 'obat fitofarmaka', 'obat herbal terstandar', 'obat herbal')
+  stok : int
+  harga_beli : int
+  harga_jual : int
+  id_resep : int
+  id_produsen : int
+}
+
+entity wishlist {
+  *id : int <<generated>>
+  --
+  id_obat : int
+  id_user : int
+  status : enum('terkonfirmasi', 'menunggu', 'ditolak')
+  total_harga : int
+  total_obat : int
+}
+
+entity transaksi_obat {
+  *id : int <<generated>>
+  --
+  tgl_transaksi : datetime
+  total_harga : int
+  id_pengajuan_resep : int
+  id_wishlist : int
+}
+
+entity transaksi_produsen {
+  *id : int <<generated>>
+  --
+  tgl_pembelian : datetime
+  status : enum('berhasil', 'gagal')
+  id_produsen : int
+  id_user : int
+}
+
+entity detail_transaksi_produsen  {
+  *id : int <<generated>>
+  --
+  jumlah : int
+  total_harga : int
+  id_transaksi_produsen : int
+  id_obat : int
+}
+
+' relationship
+pengajuan_resep }|..|| user
+bahan_penyusun }|..|| resep
+obat }|..|| resep
+obat }|..|| produsen
+wishlist }|..|| obat
+wishlist }|..|| user
+transaksi_obat }|..|| pengajuan_resep
+transaksi_obat }|..|| wishlist
+transaksi_produsen }|..|| produsen
+transaksi_produsen }|..|| user
+detail_transaksi_produsen }|..|| obat
+
+@enduml 

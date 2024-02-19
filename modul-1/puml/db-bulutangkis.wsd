@@ -1,6 +1,6 @@
 @startuml bulutangkis
 
-entity users{
+entity users {
   *id : int <<generated>>
   --
   nama : varchar(64)
@@ -11,20 +11,20 @@ entity users{
   updated_at : timestamp default current_timestamp on update current_timestamp
 }
 
-entity lapangan{
+entity lapangan {
   *id : int <<generated>>
   --
-  nama varchar(64)
-  harga_per_jam decimal(10, 2)
-  kelas enum('gold', 'silver', 'bronze')
-  status_lapangan enum('tersedia', 'dipesan') not null default 'tersedia'
-  created_at timestamp default current_timestamp
-  updated_at timestamp default current_timestamp on update current_timestamp
-  waktu_pesan_awal datetime
-  waktu_pesan_akhir datetime
+  nama : varchar(64)
+  harga_per_jam : decimal(10, 2)
+  kelas : enum('gold', 'silver', 'bronze')
+  status_lapangan : enum('tersedia', 'dipesan') not null default 'tersedia'
+  created_at : timestamp default current_timestamp
+  updated_at : timestamp default current_timestamp on update current_timestamp
+  waktu_pesan_awal : datetime
+  waktu_pesan_akhir : datetime
 }
 
-entity raket{
+entity raket {
   *id : int <<generated>>
   --
   nama : varchar(64)
@@ -36,7 +36,7 @@ entity raket{
   waktu_pesan_akhir : datetime
 }
 
-entity kok{
+entity kok {
   *id : int <<generated>>
   --
   status_kok : enum('tersedia', 'terjual') not null default 'tersedia'
@@ -46,7 +46,7 @@ entity kok{
   ordered_at : datetime
 }
 
-entity penyewaan_lapangan{
+entity penyewaan_lapangan {
   *id : int <<generated>>
   --
   *id_user : int <<FK>>
@@ -58,7 +58,7 @@ entity penyewaan_lapangan{
 
 
 
-entity detail_penyewaan_lapangan{
+entity detail_penyewaan_lapangan {
   *id : int <<generated>>
   --
   *id_penyewaan : int <<FK>>
@@ -69,7 +69,7 @@ entity detail_penyewaan_lapangan{
   updated_at : timestamp default current_timestamp on update current_timestamp
 }
 
-entity penyewaan_raket{
+entity penyewaan_raket {
   *id : int <<generated>>
   --
   *id_user : int <<FK>>
@@ -79,20 +79,20 @@ entity penyewaan_raket{
   updated_at : timestamp default current_timestamp on update current_timestamp
 }
 
-entity detail_penyewaan_raket{
+entity detail_penyewaan_raket {
   *id : int <<generated>>
   --
-  *id_penyewaan int <<FK>>
-  *id_raket int <<FK>>
-  rentang_waktu decimal(10, 2)
-  total_biaya decimal(10, 2) default 0
-  created_at timestamp default current_timestamp
-  updated_at timestamp default current_timestamp on update current_timestamp
+  *id_penyewaan : int <<FK>>
+  *id_raket int : <<FK>>
+  rentang_waktu : decimal(10, 2)
+  total_biaya : decimal(10, 2) default 0
+  created_at : timestamp default current_timestamp
+  updated_at : timestamp default current_timestamp on update current_timestamp
 }
 
 
 
-entity pembelian_kok{
+entity pembelian_kok {
   *id : int <<generated>>
   --
   *id_user : int <<FK>>
@@ -102,7 +102,7 @@ entity pembelian_kok{
   updated_at : timestamp default current_timestamp on update current_timestamp
 }
 
-entity detail_pembelian_kok{
+entity detail_pembelian_kok {
   *id : int <<generated>>
   --
   *id_pembelian : int <<FK>>
@@ -113,7 +113,7 @@ entity detail_pembelian_kok{
   updated_at : timestamp default current_timestamp on update current_timestamp
 }
 
-entity review_lapangan{
+entity review_lapangan {
   *id : int <<generated>>
   --
   *id_pesanan_lapangan : int <<FK>>
@@ -123,7 +123,7 @@ entity review_lapangan{
   updated_at : timestamp default current_timestamp on update current_timestamp
 }
 
-entity review_raket{
+entity review_raket {
   *id : int <<generated>>
   --
   *id_pesanan_raket : int <<FK>>
