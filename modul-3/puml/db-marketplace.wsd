@@ -1,0 +1,129 @@
+@startuml marketplace
+
+entity user {
+  *id : int <<generated>>
+  --
+  nama_user : varchar(255) 
+  status_user : enum('Seller' 'Buyer')
+  email_user : varchar(255) 
+  sandi : varchar(20) 
+  no_telepon : varchar(15) 
+  alamat_user : varchar(255) 
+  jumlah_saldo : int(11) 
+}
+
+entity toko {
+  *id : int <<generated>>
+  --
+  id_user : int(11) 
+}
+
+entity kategori {
+  *id : int <<generated>>
+  --
+  jenis_kategori : varchar(50) 
+}
+
+entity produk {
+  *id : int <<generated>>
+  --
+  id_toko : int(11) 
+  id_kategori : int(11) 
+  nama_produk : varchar(255) 
+  harga_produk : int(11) 
+  stok_produk : int(11) 
+  jumlah_terjual_produk : int(11) 
+  deskripsi_produk : varchar(255)
+}
+
+entity wishlist {
+  *id : int <<generated>>
+  --
+  id_user : int(11) 
+  id_produk : int(11) 
+  jumlah_produk : int(11) 
+  total_harga : int(11) 
+  status_wishlist : enum('Terbeli' 'Belum') 
+}
+
+entity review {
+  *id : int <<generated>>
+  --
+  id_user : int(11) 
+  review : varchar(255) 
+  rating : int(11) 
+  jawaban_seller : varchar(255) 
+}
+
+entity metode_pembayaran {
+  *id : int <<generated>>
+  --
+  jenis_pembayaran : varchar(50) 
+}
+
+entity pengiriman {
+  *id : int <<generated>>
+  --
+  tanggal_pengiriman : date  
+  alamat_pengiriman : varchar(255) 
+  status_pengiriman : enum('Terkirim' 'Belum Terkirim') 
+}
+
+entity pemesanan {
+  *id : int <<generated>>
+  --
+  id_user : int(11) 
+  id_toko : int(11) 
+  id_metode_bayar : int(11) 
+  id_pengiriman : int(11) 
+  tanggal_pemesanan : date  
+  status_pembayaran : enum('Lunas' 'Belum Lunas') 
+  total_harga : int(11) 
+}
+
+entity detail_pemesanan {
+  *id : int <<generated>>
+  --
+  id_pemesanan : int(11) 
+  id_produk : int(11) 
+  id_wishlist : int(11) 
+  id_review : int(11) 
+  total_produk : int(11) 
+  sub_total_harga : int(11) 
+  ongkos_kirim : int(11) 
+}
+
+entity roomchat {
+  *id : int <<generated>>
+  --
+  id_user : int(11) 
+}
+
+entity chatlog {
+  *id : int <<generated>>
+  --
+  id_roomchat : int(11) 
+  is_sender : enum('Yes' 'No') 
+  content : varchar(255) 
+  waktu_terkirim : datetime 
+}
+
+' relationship
+toko }|..|| user
+produk }|..|| toko
+produk }|..|| kategori
+wishlist }|..|| user
+wishlist }|..|| produk
+review }|..|| user
+pemesanan }|..|| user
+pemesanan }|..|| toko
+pemesanan }|..|| metode_pembayaran
+pemesanan }|..|| pengiriman
+detail_pemesanan }|..|| pemesanan
+detail_pemesanan }|..|| produk
+detail_pemesanan }|..|| wishlist
+detail_pemesanan }|..|| review
+roomchat }|..|| user
+chatlog }|..|| roomchat
+
+@enduml 
