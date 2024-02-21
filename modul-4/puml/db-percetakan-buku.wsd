@@ -1,0 +1,146 @@
+@startuml percetakan-buku
+
+entity bahan_baku {
+  *id : int <<generated>>
+  --
+  nama_bahan : varchar(32)
+  stok : int
+  harga_satuan : decimal(12, 2)
+}
+
+entity kategori_buku {
+  *id : int <<generated>>
+  --
+  kategori_buku : varchar(32)
+}
+
+entity distributor_bahan_baku {
+  *id : int <<generated>>
+  --
+  nama_distributor : varchar(32)
+  alamat : varchar(80)
+  telepon : char(14)
+}
+
+entity buku {
+  *id : int <<generated>>
+  --
+  id_kategori : int
+  judul_buku : varchar(64)
+  penulis : varchar(64)
+  jml_halaman : int
+  stok : int
+  harga_satuan : decimal(12, 2)
+}
+
+entity pegawai {
+  *id : int <<generated>>
+  --
+  nama_pegawai : varchar(64)
+  alamat : varchar(80)
+  telepon : char(14)
+}
+
+entity kelompok_kerja {
+  *id : int <<generated>>
+  --
+  kelompok : char(2)
+}
+
+entity toko_buku {
+  *id : int <<generated>>
+  --
+  nama_toko_buku : varchar(32)
+  alamat : varchar(80)
+  telepon : char(14)
+}
+
+entity mesin {
+  *id : int <<generated>>
+  --
+  nomor_rangka : char(17)
+  merek_mesin : varchar(32)
+}
+
+entity kerja_pegawai {
+  *id : int <<generated>>
+  --
+  id_pegawai : int
+  id_kelompok_kerja : int
+  shift_siang : bit(1)
+}
+
+entity komposisi {
+  *id : int <<generated>>
+  --
+  id_buku : int
+  id_bahan_baku : int
+  jml_bahan_terpakai : decimal(6, 2)
+  harga_satuan : decimal(12, 2)
+}
+
+entity transaksi_bahan_baku {
+  *id : int <<generated>>
+  --
+  id_distributor : int
+  id_pegawai : int
+  waktu_transaksi : timestamp 
+  total_biaya : decimal(12, 2)
+}
+
+entity detail_transaksi_bahan_baku {
+  *id : int <<generated>>
+  --
+  id_tr_bahan_baku : int
+  id_bahan_baku : int
+  jml_bahan_baku : int
+  sub_total_biaya : decimal(12, 2)
+}
+
+entity transaksi_buku {
+  *id : int <<generated>>
+  --
+  id_toko : int
+  id_pegawai : int
+  waktu_transaksi : timestamp 
+  total_biaya : decimal(12, 2)
+}
+
+entity detail_transaksi_buku {
+  *id : int <<generated>>
+  --
+  id_tr_buku : int
+  id_buku : int
+  jml_buku : int
+  sub_total_biaya : decimal(12, 2)
+}
+
+entity kerja_mesin {
+  *id : int <<generated>>
+  --
+  id_mesin : int
+  id_buku : int
+  id_kelompok_kerja : int
+  jml_buku_diproduksi : int
+  tanggal_kerja : date
+}
+
+' relationship
+buku }|..|| kategori_buku
+kerja_pegawai }|..|| pegawai
+kerja_pegawai }|..|| kelompok_kerja
+komposisi }|..|| buku
+komposisi }|..|| bahan_baku
+transaksi_bahan_baku }|..|| distributor_bahan_baku
+transaksi_bahan_baku }|..|| pegawai
+detail_transaksi_bahan_baku }|..|| transaksi_bahan_baku
+detail_transaksi_bahan_baku }|..|| bahan_baku
+transaksi_buku }|..|| toko_buku
+transaksi_buku }|..|| pegawai
+detail_transaksi_buku }|..|| transaksi_buku
+detail_transaksi_buku }|..|| buku
+kerja_mesin }|..|| mesin
+kerja_mesin }|..|| buku
+kerja_mesin }|..|| kelompok_kerja
+
+@enduml 

@@ -26,4 +26,10 @@
 
 ## Modul 4 - Database Percetakan Buku
 
+<img
+  src="/out/modul-4/puml/db-percetakan-buku/percetakan-buku.png"
+  alt=""
+  style="width: 100%"
+/>
+
 ## Modul 5 - Database Manajemen Stasiun Kereta Api
