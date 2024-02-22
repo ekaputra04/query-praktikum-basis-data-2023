@@ -1,0 +1,112 @@
+@startuml manajemen-stasiun
+
+entity user {
+  *id : int <<generated>>
+  --
+  nama_user : varchar(255) 
+  status_user : enum('User', 'Admin') 
+  email_user : varchar(255) 
+  sandi : varchar(20) 
+  no_telepon : varchar(15) 
+  alamat_user : varchar(255)
+}
+
+entity masinis {
+  *id : int <<generated>>
+  --
+  nama_masinis : varchar(50) 
+  alamat_masinis : varchar(50) 
+  no_telp_masinis : varchar(15)
+}
+
+entity fasilitas {
+  *id : int <<generated>>
+  --
+  jenis_fasilitas : varchar(50) 
+  harga_fasilitas : int(100)
+}
+
+entity kereta {
+  *id : int <<generated>>
+  --
+  id_masinis : int(11) 
+  nama_kereta : varchar(50) 
+  nomor_kereta : varchar(10) 
+  ketersediaan_kursi : int 
+}
+
+entity kota {
+  *id : int <<generated>>
+  --
+  nama_kota : varchar(50)
+}
+
+entity jadwal_keberangkatan {
+  *id : int <<generated>>
+  --
+  id_kereta : int 
+  id_kota_awal : int 
+  id_kota_tujuan : int 
+  tanggal_keberangkatan : datetime 
+  tanggal_kedatangan : datetime 
+  harga int
+}
+
+entity metode_pembayaran {
+  *id : int <<generated>>
+  --
+  jenis_pembayaran : varchar(50)
+}
+
+entity pemesanan {
+  *id : int <<generated>>
+  --
+  id_user : int(11) 
+  id_jadwal_keberangkatan : int(11) 
+  id_fasilitas : int(11) 
+  id_metode_pembayaran : int(11) 
+  banyak_penumpang : int(11) 
+  tanggal_pemesanan : datetime 
+  metode_pemesanan : enum('transfer', 'kredit') 
+  status_pemesanan : enum('valid', 'unvalid')
+}
+
+entity transaksi {
+  *id : int <<generated>>
+  --
+  id_pemesanan : int(11) 
+  tanggal_bayar : datetime 
+  total_harga : int 
+  status : enum('sukses', 'gagal')
+}
+
+' -- tabel tambahan (opsional)
+entity roomchat {
+  *id : int <<generated>>
+  --
+  id_user : int(11) 
+  id_admin : int(11) 
+}
+
+entity chatlog {
+  *id : int <<generated>>
+  --
+  id_roomchat : int(11) 
+  is_sender : enum('Yes', 'No') 
+  content : varchar(255) 
+  waktu_terkirim : datetime
+}
+
+' relationship
+kereta }|..|| masinis
+jadwal_keberangkatan }|..|| kereta
+jadwal_keberangkatan }|..|| kota
+pemesanan }|..|| user
+pemesanan }|..|| jadwal_keberangkatan
+pemesanan }|..|| fasilitas
+pemesanan }|..|| metode_pembayaran
+transaksi }|..|| pemesanan
+roomchat }|..|| user
+chatlog }|..|| roomchat
+
+@enduml 

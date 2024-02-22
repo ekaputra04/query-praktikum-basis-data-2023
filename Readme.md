@@ -33,3 +33,9 @@
 />
 
 ## Modul 5 - Database Manajemen Stasiun Kereta Api
+
+<img
+  src="/out/modul-5/puml/db-manajemen-stasiun/manajemen-stasiun.png"
+  alt=""
+  style="width: 100%"
+/>
